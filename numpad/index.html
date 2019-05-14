@@ -1,0 +1,210 @@
+<html>
+    <head>
+        <title>Numpads</title>
+        <style>
+            #numpad.hidden {
+                animation: animate-out 0.6s;
+                animation-timing-function: ease;
+                animation-iteration-count: 1;
+                opacity: 0;
+            }
+            #numpad {
+                animation: animate-in .5s;
+                animation-timing-function: ease;
+                animation-iteration-count: 1;
+                z-index: 2147470000 !important;
+                background-color: rgb(40, 40, 40);
+                text-align: center;
+                border-radius: 2mm;
+                position: fixed;
+                padding: 15px;
+                box-shadow: 0px 5px 10px #141414;
+            }
+            #numpad ::selection {
+                background-color: rgba(255, 255, 255, 0);
+            }
+            #numpad ::-moz-selection {
+                background-color: rgba(255, 255, 255, 0);
+            }
+            .numpad {
+                display: grid;
+                grid-gap: 1em;
+                grid-template-columns: repeat(3, 115px);
+            }
+            .diplay-flex {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            a:hover {
+                cursor: pointer; 
+            }
+            .numbutton {
+                background-color: rgb(60, 60, 60);
+                border-radius: 2mm;
+                width: 115px;
+                height: 115px;
+                /*margin: 7px;*/
+                color: white;
+                transition-duration: .5s;
+                cursor: pointer;
+            }
+            .numbutton p {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 50px;
+                margin: 0;
+            }
+            .numbutton:hover {
+                background-color: rgb(70, 70, 70);
+            }
+            .numbutton.fade-red:hover {
+                background-color: rgb(150, 76, 76);
+            }
+            .numbutton.fade-green:hover {
+                background-color: rgb(76, 150, 76);
+            }
+            li, ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                text-decoration: none;
+                float: left;
+            }
+            .centered {
+                justify-content: center;
+                align-items: center;
+            }
+            @keyframes animate-in {
+                from {
+                    opacity: 0;
+                    transform: translate3d(0, 50px, 0);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate3d(0, 0, 0);
+                }
+            }
+            @keyframes animate-out {
+                from {
+                    opacity: 1;
+                    transform: translate3d(0, 0, 0);
+                }
+                60% {
+                    opacity: 0;
+                }
+                to {
+                    transform: translate3d(0, 50px, 0);
+                }
+            }
+            /* Just for the Example Site */
+            html {
+                background-color: #1c1d1d;
+            }
+            input {
+                background-color: rgb(70, 72, 73);
+                padding: 8px;
+                display: block;
+                border: none;
+                width: 90%;
+                height: 50px;
+                font-size: 20px;
+                color: white;
+                animation: fade-in-zoom 0.6s;
+                animation-timing-function: ease-out;
+                animation-iteration-count: 1;
+                box-shadow: 0px 5px 10px #141414;
+            }
+            .wrapper {
+                width: 100%;
+                height: 100%;
+            }
+            @keyframes fade-in-zoom {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper diplay-flex centered">
+            <input type="text" class="numpads" id="nump1">
+        </div>
+        <div id="numpad" class="hidden diplay-flex" style="display: none">
+            <ul class="numpad">
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('1')"><p>1</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('2')"><p>2</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('3')"><p>3</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('4')"><p>4</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('5')"><p>5</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('6')"><p>6</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('7')"><p>7</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('8')"><p>8</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('9')"><p>9</p></li>
+                <li class="numbutton fade-red diplay-flex centered" onclick="numpadInput('$del')"><p><</p></li>
+                <li class="numbutton diplay-flex centered" onclick="numpadInput('0')"><p>0</p></li>
+                <li class="numbutton fade-green diplay-flex centered" onclick="numpadClose()"><p>Ok</p></li>
+            </ul>
+        </div>
+
+        <script>
+            var editing = null;
+            var mainnumpad = null;
+            numpadHeight = 269;
+            numpadWidth = 203.5;
+            function init() {
+                numpads = document.getElementsByClassName("numpads");
+                if(numpads) {
+                    for(let num of numpads) {
+                        num.setAttribute("onfocus", "numpadOpen('" + num.id + "')");
+                    }
+                }
+                mainnumpad = document.getElementById("numpad");
+            }
+            function numpadOpenAt(n, x, y) {
+                mainnumpad.style.left = x - numpadWidth;
+                mainnumpad.style.top = y - numpadHeight;
+                editing = document.getElementById(n);
+                mainnumpad.classList.remove("hidden");
+                mainnumpad.style.top = x - numpadHeight;
+                mainnumpad.style.left = y - numpadWidth;
+                mainnumpad.style.display = "inherit";
+            }
+            function numpadOpen(n) {
+                numpadOpenAt(n, window.innerHeight / 2, window.innerWidth / 2);
+            }
+            function numpadClose() {
+                editing = null;
+                mainnumpad.classList.add("hidden");
+                setTimeout(function() {
+                    mainnumpad.setAttribute("style", "display: none")
+                }, 600);
+            }
+            function numpadInput(b) {
+                if(!editing) {
+                    return;
+                }
+                currval = editing.value;
+                if(b == "$del") {
+                    if(currval.length == 0) {
+                        return;
+                    }
+                    editing.value = currval.substring(0, currval.length-1);
+                } else {
+                    editing.value = currval + b;
+                }
+            }
+            function documentReady() {
+                init();
+            }
+            document.onreadystatechange = function(event) {
+                if(document.readyState == "complete") {
+                    documentReady();
+                }
+            }
+        </script> 
+    </body>
+</html>
