@@ -1,0 +1,60 @@
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel='shortcut icon' type='image/x-icon' href='../favicon.ico'/>
+    <title>Web Stuff 3 - JS Particles</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Settings <div trigger-for="c1" class="clickable collapse-control closed">V</div></h2>
+        <div id="c1" class="collapsable collapsed">
+            <p><h1>-- Configs --</h1></p>
+            <select id="configSelect"></select>
+            <p><h1>-- Particle Settings --</h1></p>
+            <p>Particle Count
+            <input type="number" min='1' max='500' id='pCount'></p>
+            <p>Size
+            <input type="number" min='1' max='30' id='minSize'> -
+            <input type="number" min='1' max='30' id='maxSize'></p>
+            <p>Speed X
+            <input type="number" min='-10' max='10' step='0.1' id='minSpeedX'> -
+            <input type="number" min='-10' max='10' step='0.1' id='maxSpeedX'></p>
+            <p>Speed Y
+            <input type="number" min='-10' max='10' step='0.1' id='minSpeedY'> -
+            <input type="number" min='-10' max='10' step='0.1' id='maxSpeedY'></p>
+            <p>Rotation Speed
+            <input type="number" min='0' max='360' id="minRSpeed"> -
+            <input type="number" min='0' max='360' id="maxRSpeed"></p>
+            <p>Fixed Rotation
+            <input type="number" min='0' max='360' id="fixedRotation">
+            Enabled <input type="checkbox" id="enableFixedRotation"></p>
+            <p>Direction</p>
+            X: <input type="range" min='-5' max='5' step='0.1' id="directionX"> 0<br>
+            Y: <input type="range" min='-5' max='5' step='0.1' id="directionY"> 0
+            <p>Particle Shape</p>
+            <select id="pShape">
+                <option value="sphere">Sphere</option>
+                <option value="square">Square</option>
+                <option value="triangle">Triangle</option>
+                <option value="line">Line</option>
+            </select>
+            Hollow <input type="checkbox" id="pWireframe">
+            <p>Lines</p>
+            Max Distance <input type="number" min='1' max='1000' value='200' id='lDistance'><br>
+            Enabled <input type="checkbox" checked id='lEnabled'>
+            <p><h1>-- Colors --</h1></p>
+            <p><input type="color" value='#ffffff' id='pColor'> Particle Color</p>
+            <p><input type="color" value='#00ffff' id='lColor'> Line Color</p>
+            <p><input type="color" value='#1d1c1c' id='bColor'> Background Color</p>
+            <p><button onclick="togglePause()">Toggle Pause</button></p>
+        </div>
+        <h2>Description <div trigger-for="c2" class="clickable collapse-control closed">V</div></h2>
+        <div id="c2" class="collapsable collapsed">
+            <br><p>Particle Lib I made in somewhat 2 Days written in JavaScript. Inspired by <a href="https://vincentgarreau.com/particles.js/" target="_blank">particles.js</a></p><br>
+            <p>Version 1.3</p>
+            <p><a target="_blank" href="https://github.com/MrSteinMC/web-projects/tree/master/particles">GitHub Link (Source)</a></p>
+        </div>
+    </div>
+    <canvas id="particle" config="default"></canvas>
+    <script src="js/particle.js"></script>
+    <script src="js/sidemenu.js"></script>
+</body>

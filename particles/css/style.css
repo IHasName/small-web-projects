@@ -1,0 +1,110 @@
+canvas {
+    top: 0;
+    left: 0;
+    z-index: -2147470000 !important;
+    position: fixed;
+    overflow: hidden;
+}
+
+/* 
+    The only thing you'd really need is the canvas above
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+}
+
+a {
+    color: white;
+}
+
+p {
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+}
+
+h1 {
+    margin: 5px;
+    color: #00b6b6;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+h2 {
+    margin: 5px;
+    color: #00ffff;
+    font-size: 20px;
+}
+
+.container {
+    max-width: 350px;
+    margin: 5px;
+    display: inline-block;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+input:not([type=checkbox]):not([type=range]) {
+    background-color: rgb(70, 72, 73);
+    border: none;
+    display: inline-block;
+    width: 50px;
+    font-size: 16px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+select {
+    background-color: rgb(70, 72, 73);
+    border: none;
+    display: inline-block;
+    font-size: 16px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+    background-color: rgb(70, 72, 73);
+    border: none;
+    display: inline-block;
+    font-size: 16px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+input[type=number] {
+    padding: 6px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.collapse-control {
+    font-size: 20px;
+    font-weight: bolder;
+    display: inline-block;
+}
+
+.collapsable {
+    overflow: hidden;
+}
+
+.collapse-control.closed {
+    transform: rotate(-90deg);
+}
+
+.collapsable.collapsed {
+    height: 0;
+    width: 15px;
+}
+
+.clickable {
+    cursor: pointer;
+}
