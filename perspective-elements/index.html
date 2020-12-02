@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerspectiveElementsJS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>PerspectiveElementsJS</h1>
+                <div class="card-container cards-50">
+                    <div class="card">
+                        <div class="card-title">Default Settings</div>
+                        <!-- 
+Dont use Ids multible times like I did here...
+But otherwise I couldnt get the Container right ^^
+It's really only to show how it works so yeah
+-->
+                        <div class="perspective" pjs-container-id="upload-target">
+                            <img src="images/placeholder1.jpg" alt="card-image">
+                            <video style="display: none" muted controls loop></video>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Inverted Axis</div>
+                        <div class="perspective" pjs-invert=true pjs-container-id="upload-target">
+                            <img src="images/placeholder1.jpg" alt="card-image">
+                            <video style="display: none" muted controls loop></video>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">400ms Transition Duration</div>
+                        <div class="perspective" pjs-transition_duration=400 pjs-container-id="upload-target">
+                            <img src="images/placeholder1.jpg" alt="card-image">
+                            <video style="display: none" muted controls loop></video>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Even works with Text</div>
+                        <div class="perspective">
+                            <p>So heres basically some really long Text because I don't want to use Lorem Ipsum because that would be too easy to use so here I am sitting just typing random Stuff to make this long enough to demonstrate that this really does handle Text and any other Stuff you put in here even Code Blocks<br><pre><code class="javascript">var somecode = "Heres some Code with perspective"
+// Code Highlighting by highlight.js</code></pre></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container drag-drop" drag-drop-target="#upload-target">
+                    <h2>DIY</h2>
+                    <div class="row">
+                        <div class="col">
+                            <div class="settings-container" settings-target="#pjs-image">
+                                <h3>Hover over the Image below to test your Settings</h3>
+                                <p class="center-text">Drag any Media here to change the Images</p>
+                                <div>transitionDuration: <input type="number" name="transition_duration" id="transition-duration"></div>
+                                <div>maxTilt: <input type="number" name="max_tilt" id="max-tilt"></div>
+                                <div>maxBrightness: <input type="number" name="max_brightness" id="max-brightness"></div>
+                                <div>easing: <input spellcheck=false type="text" name="easing" id="easing"></div>
+                                <div>perspective: <input spellcheck=false type="text" name="perspective" id="perspective"></div>
+                                <div>invert: <input type="checkbox" name="invert" id="invert"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row center-text">
+                        <div class="col">
+                            <div class="card-container preview-container">
+                                <div class="card">
+                                    <div class="perspective" id="pjs-image" pjs-container-id="upload-target">
+                                        <img src="images/placeholder2.jpg" alt="card-image">
+                                        <video style="display: none" muted controls loop></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <h2>How to use:</h2>
+                    <div class="row">
+                        <div class="col">
+                            <p>Just add the "perspective" Class to a Element and youre good to go!</p>
+<pre><code><div class="perspective">
+    <!-- Any Element you need -->
+</div></code></pre>
+                            <p>Use the following Code to initialize everything</p>
+                            <pre><code>pjs_controller = new perspectivejs()</code></pre>
+                        </div>
+                    </div>
+                    <h2>Why?</h2>
+                    <div class="row">
+                        <div class="col center-text">
+                            <p>Made this for a Website of a Friend and yeah since I didn't know what else to do with it I just uploaded it here</p>
+                            <p>Source Code can be found <a href="https://github.com/IHasName/small-web-projects/tree/master/perspective-elements">here</a></p>
+                            <p>Also don't blame me when something looks wrong or isnt working right. This was made in just a few hours (a Day max) C;<br>btw this Page took longer than making the Script</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
+
+    <script src="js/perspective.min.js"></script>
+    <script>pjs_controller = new perspectivejs({autoInit:false})</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", pageInit);
+        function pageInit() {
+            document.removeEventListener("DOMContentLoaded", pageInit);
+            
+            document.querySelectorAll(".drag-drop").forEach(e => {
+                ddoverlay = document.createElement("div")
+                ddoverlay.classList.add("drag-drop-overlay");
+                ddoverlay.innerText = "Drop Media here"
+                e.style.position = "relative";
+                e.appendChild(ddoverlay)
+                
+                e.addEventListener("dragover", function(ev) {
+                    ev.preventDefault();
+                    this.querySelector(".drag-drop-overlay").classList.add("active")
+                });
+                ddoverlay.addEventListener("dragleave", function() {
+                    this.classList.remove("active");
+                });
+                ddoverlay.addEventListener("mouseleave", function() {
+                    this.classList.remove("active");
+                });
+                ddoverlay.addEventListener("drop", function(ev) {
+                    df = this;
+                    ev.preventDefault();
+                    df.classList.remove("active");
+
+                    if (ev.dataTransfer.items) {
+                        Array.from(ev.dataTransfer.items).forEach(updateImage);
+                    } else {
+                        Array.from(ev.dataTransfer.files).forEach(updateImage);
+                    }
+
+                    function updateImage(file) {
+                        if(file.type.startsWith("video/") || file.type.startsWith("image/")) {
+                            blob = new Blob([file.getAsFile()]);
+                            var urlCreator = window.URL || window.webkitURL;
+                            var blobl = urlCreator.createObjectURL(blob);
+
+                            document.querySelectorAll(df.parentElement.getAttribute("drag-drop-target")).forEach(pvE => {
+                                hideAllPreviews(pvE);
+                                if(file.type.startsWith("video")) {
+                                    el = pvE.querySelector("video");
+                                    el.src = blobl;
+                                    el.style.display = "";
+                                    el.play();
+                                } else if(file.type.startsWith("image")) {
+                                    el = pvE.querySelector("img");
+                                    el.src = blobl;
+                                    el.style.display = "";
+                                }
+                            });
+                        }
+                    }
+                });
+                
+            })
+            
+            document.querySelectorAll('pre code').forEach((block) => {
+                block.innerHTML = block.innerHTML.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+                hljs.highlightBlock(block);
+            });
+            pjs_controller.init();
+            document.querySelectorAll(".settings-container").forEach(e => {
+                e.querySelectorAll("input, select").forEach(inp => {
+                    inp.addEventListener("change", upd)
+                    inp.value = pjs_controller.settings[inp.name]
+                })
+            });
+        }
+
+        function upd() {
+            document.querySelector(this.parentElement.parentElement.getAttribute("settings-target")).setAttribute("pjs-" + this.name, this.type == "checkbox" ? this.checked : this.value)
+        }
+        
+        function hideAllPreviews(container) {
+            Array.from(container.children).forEach(e => {
+                e.style.display = "none";
+            })
+        }
+    </script>
+
+    
+</body>
+</html>

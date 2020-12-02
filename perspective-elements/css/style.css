@@ -1,0 +1,155 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+    background-color: #1c1d1d;
+    color: #fff;
+    font-family: monospace;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    text-align: center;
+}
+
+.container {
+    margin: 50px auto 0 auto;
+    max-width: 1200px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.card-container.cards-50>.card {
+    width: calc(50% - 8px);
+}
+
+.card-container .card img,
+.card-container .card video {
+    max-width: 100%;
+}
+
+.card-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.col,
+.col-50 {
+    display: inline-flex;
+}
+
+.col-50 {
+    flex: 0 0 calc(50% - 8px);
+}
+
+.card-container .card .perspective {
+    display: flex;
+    justify-content: center;
+}
+
+.container .row {
+    flex-direction: row;
+    text-align: center;
+}
+
+.container .row .col {
+    flex-direction: column;
+    margin: auto;
+    text-align: left;
+}
+
+.settings-container {
+    text-align: left;
+}
+
+.settings-container div {
+    margin: 4px 0;
+}
+
+.container:last-of-type {
+    margin-bottom: 50px;
+}
+
+.drag-drop-overlay {
+    display: none;
+    background-color: #5050507d;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.drag-drop-overlay.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-container {
+    margin-top: 30px;
+}
+
+.preview-container img,
+.preview-container video {
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+input[type=text],
+input[type=number] {
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: white 1px solid;
+    padding-bottom: 2px;
+    color: white;
+    font-size: .8em;
+    transition-duration: .1s;
+    margin: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type=text]:focus,
+input[type=number]:focus {
+    outline: none;
+    border-bottom: #fff 3px solid;
+    padding-bottom: 0;
+}
+
+.center-text {
+    text-align: center!important;
+}
+
+a, a:visited, a:active {
+    color: #fff;
+}
+
+a:hover {
+    color: #ddd;
+}
+
+
